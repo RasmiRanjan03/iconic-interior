@@ -1,0 +1,11 @@
+# Forward every request into the public /web folder (XAMPP sub-folder deployment)
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    RewriteEngine On
+    RewriteRule ^((?!web/).*)$ web/$1 [L]
+</IfModule>
+
+# Never expose application source, config or vendor files
+<FilesMatch "\.(env|ini|log|sh|bat|json|lock|md|yml|neon|dist)$">
+    Require all denied
+</FilesMatch>
