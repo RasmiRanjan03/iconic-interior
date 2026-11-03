@@ -73,7 +73,7 @@ $metaDesc = $this->params['meta_description'] ?? $settings->meta_description;
 
     <?php $this->head() ?>
 </head>
-<body class="h-full bg-[#0A0A0A] text-[#F9FAFB] font-sans antialiased selection:bg-[#D4AF37]/30 selection:text-white grain flex flex-col justify-between">
+<body class="min-h-full bg-[#0A0A0A] text-[#F9FAFB] font-sans antialiased selection:bg-[#D4AF37]/30 selection:text-white grain flex flex-col">
 <?php $this->beginBody() ?>
 
     <!-- Header Navigation -->
@@ -110,7 +110,7 @@ $metaDesc = $this->params['meta_description'] ?? $settings->meta_description;
     </div>
 
     <!-- Main Content Area -->
-    <main class="flex-grow pt-20 md:pt-24">
+    <main class="flex-grow <?= (Yii::$app->controller && Yii::$app->controller->route === 'site/index') ? '' : 'pt-20 md:pt-24' ?>">
         <?= $content ?>
     </main>
 

@@ -9,7 +9,7 @@ $settings = SiteSettings::get();
 $services = Service::active()->limit(6)->all();
 ?>
 
-<footer class="relative bg-[#080808] border-t border-white/5 pt-16 md:pt-24 pb-12 overflow-hidden text-gray-400">
+<footer class="relative shrink-0 bg-[#080808] border-t border-white/5 pt-16 md:pt-24 pb-12 overflow-hidden text-gray-400">
     <!-- Ambient Gold Glow -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-2xl pointer-events-none"></div>
 

@@ -16,8 +16,8 @@ if (!isset($environment['DB_NAME']) || $environment['DB_NAME'] === '' || !array_
 
 return [
     'class' => \yii\db\Connection::class,
-    'dsn' => 'mysql:host=127.0.0.1;dbname=' . $environment['DB_NAME'],
-    'username' => $environment['DB_NAME'],
+    'dsn' => 'mysql:host=localhost;dbname=' . $environment['DB_NAME'],
+    'username' => 'root',
     'password' => $environment['DB_PASSWORD'],
     'charset' => 'utf8mb4',
 

@@ -18,8 +18,66 @@ use yii\helpers\Url;
 $this->title = $page ? $page->title : 'Luxury Interiors & Bespoke Architecture';
 $this->params['meta_description'] = $page?->meta_description;
 $stats = $page ? ($page->getExtra()['stats'] ?? []) : [];
-$seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
+$seqBaseUrl = Yii::getAlias('@web') . '/images/apartment-sequence';
 ?>
+
+<!-- ═══ Full-Screen Animated Preloader (above everything, including header) ═══ -->
+<div id="pre-hero-loader" class="phl">
+    <!-- Floating gold particles -->
+    <div class="phl-particles">
+        <span class="phl-dot" style="--x:12%;--y:18%;--d:6s;--dl:0s"></span>
+        <span class="phl-dot" style="--x:82%;--y:25%;--d:8s;--dl:1s"></span>
+        <span class="phl-dot" style="--x:35%;--y:72%;--d:7s;--dl:0.5s"></span>
+        <span class="phl-dot" style="--x:68%;--y:80%;--d:9s;--dl:2s"></span>
+        <span class="phl-dot" style="--x:50%;--y:40%;--d:5s;--dl:1.5s"></span>
+        <span class="phl-dot" style="--x:20%;--y:55%;--d:7.5s;--dl:0.8s"></span>
+        <span class="phl-dot" style="--x:90%;--y:60%;--d:6.5s;--dl:2.5s"></span>
+        <span class="phl-dot" style="--x:45%;--y:10%;--d:8.5s;--dl:1.2s"></span>
+    </div>
+
+    <!-- Radial glow backdrop -->
+    <div class="phl-glow"></div>
+
+    <!-- Centre content -->
+    <div class="phl-center">
+        <!-- Diamond icon -->
+        <div class="phl-icon">
+            <svg width="54" height="54" viewBox="0 0 54 54" fill="none">
+                <rect x="27" y="3" width="34" height="34" rx="3" transform="rotate(45 27 3)"
+                      stroke="url(#ico-grad)" stroke-width="1.2" fill="none"/>
+                <rect x="27" y="10" width="24" height="24" rx="2" transform="rotate(45 27 10)"
+                      stroke="url(#ico-grad)" stroke-width="0.7" fill="rgba(212,175,55,0.04)"/>
+                <circle cx="27" cy="27" r="3.5" fill="#D4AF37"/>
+                <circle cx="27" cy="27" r="6" stroke="#D4AF37" stroke-width="0.5" fill="none" opacity="0.35"/>
+                <defs>
+                    <linearGradient id="ico-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FBF5B7"/>
+                        <stop offset="50%" stop-color="#D4AF37"/>
+                        <stop offset="100%" stop-color="#AA771C"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Brand wordmark -->
+        <h2 class="phl-title">
+            <span class="phl-word">ICONIC</span>
+            <span class="phl-word phl-word--2">INTERIORS</span>
+        </h2>
+
+        <!-- Animated gold underline -->
+        <div class="phl-line"></div>
+
+        <!-- Tagline -->
+        <p class="phl-tagline">Crafting Timeless Spaces</p>
+    </div>
+
+    <!-- Corner accents -->
+    <span class="phl-corner phl-corner--tl"></span>
+    <span class="phl-corner phl-corner--tr"></span>
+    <span class="phl-corner phl-corner--bl"></span>
+    <span class="phl-corner phl-corner--br"></span>
+</div>
 
 <!-- =========================================================================
      FULL-SCREEN SCROLL-SCRUBBING IMAGE SEQUENCE SECTION (#pre-hero-scroll)
@@ -58,7 +116,7 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
                 <div class="pre-hero-progress-bar" id="pre-hero-bar"></div>
             </div>
             <div class="pre-hero-counter">
-                <span id="pre-hero-frame-num">001</span> / 300
+                <span id="pre-hero-frame-num">001</span> / 239
             </div>
             <button type="button" class="pre-hero-scroll-hint" id="pre-hero-scroll-btn">
                 <span>Scroll to Unveil</span>
@@ -66,12 +124,6 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
                     <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-        </div>
-
-        <!-- Initial Loader Overlay -->
-        <div id="pre-hero-loader" class="pre-hero-loader">
-            <div class="pre-hero-spinner"></div>
-            <span class="pre-hero-load-text">Loading Sequence...</span>
         </div>
     </div>
 </section>
@@ -151,6 +203,19 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
     transform: translateY(28px) scale(0.97);
     transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
+    padding: 2.25rem 2.5rem;
+    isolation: isolate;
+}
+
+/* Scrim stays behind the caption content while softening bright frames. */
+#pre-hero-scroll .pre-hero-caption::before {
+    content: '';
+    position: absolute;
+    inset: -2rem -3rem;
+    z-index: -1;
+
+    filter: blur(14px);
+    pointer-events: none;
 }
 
 #pre-hero-scroll .pre-hero-caption.is-active {
@@ -164,9 +229,9 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
     gap: 0.5rem;
     padding: 0.35rem 1rem;
     border-radius: 9999px;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    color: #D4AF37;
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    color: #F2CF63;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.25em;
@@ -192,23 +257,31 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
     letter-spacing: -0.02em;
     color: #FFFFFF;
     margin: 0 0 1rem 0;
-    text-shadow: 0 4px 24px rgba(0,0,0,0.85);
+    text-wrap: balance;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 6px 28px rgba(0,0,0,0.75);
 }
 
 #pre-hero-scroll .pre-hero-gold {
-    background: linear-gradient(135deg, #FBF5B7 0%, #D4AF37 50%, #AA771C 100%);
+    display: inline-block;
+    padding: 0 0.12em 0.05em 0;
+    background: linear-gradient(135deg, #FBF5B7 0%, #E8C547 50%, #FFB52E 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
     font-style: italic;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.85)) drop-shadow(0 0 18px rgba(0,0,0,0.5));
 }
 
 #pre-hero-scroll .pre-hero-sub {
     font-size: clamp(0.95rem, 1.8vw, 1.2rem);
-    color: #D1D5DB;
-    font-weight: 300;
+    color: #FFFFFF;
+    font-weight: 500;
     line-height: 1.6;
     margin: 0;
-    text-shadow: 0 2px 14px rgba(0,0,0,0.9);
+    text-wrap: balance;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.95), 0 3px 18px rgba(0,0,0,0.8);
 }
 
 #pre-hero-scroll .pre-hero-hud {
@@ -282,39 +355,209 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
     animation: preHeroBounce 1.8s infinite ease-in-out;
 }
 
-#pre-hero-scroll .pre-hero-loader {
-    position: absolute;
+/* ══════════════════════════════════════════════════════════════════════
+   FULL-SCREEN ANIMATED PRELOADER — ICONIC INTERIORS
+   ══════════════════════════════════════════════════════════════════════ */
+.phl {
+    position: fixed;
     inset: 0;
-    background: #050505;
+    background: #040408;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    z-index: 10;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    z-index: 99999;
+    transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1),
+                visibility 1.1s cubic-bezier(0.16,1,0.3,1);
+    overflow: hidden;
 }
-
-#pre-hero-scroll .pre-hero-loader.is-hidden {
+.phl.is-hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
 
-#pre-hero-scroll .pre-hero-spinner {
-    width: 36px;
-    height: 36px;
-    border: 2px solid rgba(212, 175, 55, 0.2);
-    border-top-color: #D4AF37;
+/* ── Floating gold particles ──────────────────────────────────────── */
+.phl-particles { position: absolute; inset: 0; pointer-events: none; }
+.phl-dot {
+    position: absolute;
+    left: var(--x); top: var(--y);
+    width: 4px; height: 4px;
     border-radius: 50%;
-    animation: preHeroSpin 0.9s linear infinite;
+    background: #D4AF37;
+    opacity: 0;
+    filter: blur(0.5px);
+    animation: phlFloat var(--d) ease-in-out var(--dl) infinite;
+}
+@keyframes phlFloat {
+    0%   { opacity: 0; transform: translateY(0)   scale(0.6); }
+    15%  { opacity: 0.7; }
+    50%  { opacity: 0.35; transform: translateY(-40px) scale(1); }
+    85%  { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-80px) scale(0.4); }
 }
 
-#pre-hero-scroll .pre-hero-load-text {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
+/* ── Radial glow ──────────────────────────────────────────────────── */
+.phl-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(212,175,55,0.10) 0%,
+        rgba(212,175,55,0.04) 35%,
+        transparent 70%);
+    animation: phlGlowPulse 4s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+@keyframes phlGlowPulse {
+    from { opacity: 0.6; transform: translate(-50%,-50%) scale(0.85); }
+    to   { opacity: 1;   transform: translate(-50%,-50%) scale(1.15); }
+}
+
+/* ── Centre block ─────────────────────────────────────────────────── */
+.phl-center {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    z-index: 2;
+}
+
+/* Diamond icon */
+.phl-icon {
+    margin-bottom: 1.6rem;
+    animation: phlIconIn 1s 0.2s cubic-bezier(0.16,1,0.3,1) both;
+}
+.phl-icon svg {
+    animation: phlSpin 18s linear infinite;
+    filter: drop-shadow(0 0 18px rgba(212,175,55,0.35));
+}
+@keyframes phlIconIn {
+    from { opacity: 0; transform: scale(0.5) rotate(-90deg); }
+    to   { opacity: 1; transform: scale(1)   rotate(0deg);   }
+}
+@keyframes phlSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Brand title */
+.phl-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    margin: 0;
+    line-height: 1.1;
+}
+.phl-word {
+    display: block;
+    font-family: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+    font-weight: 900;
     text-transform: uppercase;
-    color: #D4AF37;
+    letter-spacing: 0.35em;
+    color: transparent;
+    background: linear-gradient(135deg, #FBF5B7 0%, #D4AF37 40%, #AA771C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    animation: phlWordIn 0.9s 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    filter: drop-shadow(0 2px 20px rgba(212,175,55,0.3));
+}
+.phl-word--2 {
+    font-size: clamp(1rem, 2.8vw, 1.6rem);
+    letter-spacing: 0.55em;
+    font-weight: 600;
+    animation-delay: 0.75s;
+    filter: drop-shadow(0 1px 12px rgba(212,175,55,0.2));
+}
+@keyframes phlWordIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.92); letter-spacing: 0.8em; }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Gold underline */
+.phl-line {
+    width: 0;
+    height: 1.5px;
+    margin-top: 1rem;
+    background: linear-gradient(90deg, transparent, #D4AF37, #FBF5B7, #D4AF37, transparent);
+    animation: phlLineGrow 1s 1.1s cubic-bezier(0.16,1,0.3,1) forwards;
+    border-radius: 9999px;
+    box-shadow: 0 0 12px rgba(212,175,55,0.4);
+}
+@keyframes phlLineGrow {
+    to { width: min(280px, 60vw); }
+}
+
+/* Tagline */
+.phl-tagline {
+    margin: 1.2rem 0 0;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(212,175,55,0.6);
+    animation: phlTagIn 0.8s 1.5s cubic-bezier(0.16,1,0.3,1) both,
+               phlTagPulse 3s 2.3s ease-in-out infinite;
+}
+@keyframes phlTagIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes phlTagPulse {
+    0%, 100% { opacity: 1;   }
+    50%      { opacity: 0.45; }
+}
+
+/* ── Corner accents ───────────────────────────────────────────────── */
+.phl-corner {
+    position: absolute;
+    width: 40px; height: 40px;
+    pointer-events: none;
+    opacity: 0;
+    animation: phlCornerIn 0.7s 1.3s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.phl-corner::before,
+.phl-corner::after {
+    content: '';
+    position: absolute;
+    background: rgba(212,175,55,0.25);
+}
+.phl-corner::before { width: 100%; height: 1px; }
+.phl-corner::after  { width: 1px;  height: 100%; }
+.phl-corner--tl { top: 2.5rem; left: 2.5rem; }
+.phl-corner--tl::before { top: 0; left: 0; }
+.phl-corner--tl::after  { top: 0; left: 0; }
+.phl-corner--tr { top: 2.5rem; right: 2.5rem; }
+.phl-corner--tr::before { top: 0; right: 0; }
+.phl-corner--tr::after  { top: 0; right: 0; }
+.phl-corner--bl { bottom: 2.5rem; left: 2.5rem; }
+.phl-corner--bl::before { bottom: 0; left: 0; }
+.phl-corner--bl::after  { bottom: 0; left: 0; }
+.phl-corner--br { bottom: 2.5rem; right: 2.5rem; }
+.phl-corner--br::before { bottom: 0; right: 0; }
+.phl-corner--br::after  { bottom: 0; right: 0; }
+@keyframes phlCornerIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Header fade-in after preloader dismisses */
+@keyframes phlHeaderFadeIn {
+    from { opacity: 0; transform: translateY(-100%); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+    .phl-corner { width: 24px; height: 24px; }
+    .phl-corner--tl, .phl-corner--tr { top: 1.2rem; }
+    .phl-corner--bl, .phl-corner--br { bottom: 1.2rem; }
+    .phl-corner--tl, .phl-corner--bl { left: 1.2rem; }
+    .phl-corner--tr, .phl-corner--br { right: 1.2rem; }
+    .phl-glow { width: 340px; height: 340px; }
 }
 
 @keyframes preHeroSpin {
@@ -349,37 +592,70 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d', { alpha: false });
-    const loader = document.getElementById('pre-hero-loader');
+    const loader      = document.getElementById('pre-hero-loader');
     const progressBar = document.getElementById('pre-hero-bar');
-    const frameNum = document.getElementById('pre-hero-frame-num');
-    const scrollBtn = document.getElementById('pre-hero-scroll-btn');
+    const frameNum    = document.getElementById('pre-hero-frame-num');
+    const scrollBtn   = document.getElementById('pre-hero-scroll-btn');
 
     const cap1 = document.getElementById('ph-caption-1');
     const cap2 = document.getElementById('ph-caption-2');
     const cap3 = document.getElementById('ph-caption-3');
 
-    const TOTAL_FRAMES = 300;
+    const TOTAL_FRAMES = 239;
     const baseUrl = <?= json_encode($seqBaseUrl) ?>;
 
-    const images = new Array(TOTAL_FRAMES + 1);
-    const loaded = new Array(TOTAL_FRAMES + 1).fill(false);
+    const images = new Array(TOTAL_FRAMES);
+    const loaded = new Array(TOTAL_FRAMES).fill(false);
 
-    let currentFrame = 1;
-    let targetFrame = 1;
-    let isTicking = false;
+    let loadedCount   = 0;
+    let sequenceReady = false;
+    let currentFrame  = 0;
+    let targetFrame   = 0;
+    let isTicking     = false;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
+    // Hide header behind preloader on load
+    var siteHeader = document.querySelector('.site-header');
+    if (siteHeader) siteHeader.style.display = 'none';
+
+    // Lock scroll until sequence is ready
+    document.documentElement.style.overflow = 'hidden';
+
     function getFrameUrl(idx) {
-        return baseUrl + '/ezgif-frame-' + String(idx).padStart(3, '0') + '.jpg';
+        return baseUrl + '/frame_' + String(idx).padStart(6, '0') + '.webp';
     }
 
+    // ── Reveal sequence after all frames loaded ────────────────────────
+    function revealSequence() {
+        if (sequenceReady) return;
+        sequenceReady = true;
+
+        // Draw frame 0 on canvas first
+        resizeCanvas();
+        drawFrame(0);
+
+        // Short pause so user sees 100% flash, then fade out loader
+        setTimeout(function() {
+            if (loader) loader.classList.add('is-hidden');
+            // Show header and restore scroll after preloader fades out
+            setTimeout(function() {
+                document.documentElement.style.overflow = '';
+                if (siteHeader) {
+                    siteHeader.style.display = '';
+                    siteHeader.style.animation = 'phlHeaderFadeIn 0.6s ease-out forwards';
+                }
+            }, 600);
+        }, 520);
+    }
+
+    // ── Canvas helpers ─────────────────────────────────────────────────
     function resizeCanvas() {
         dpr = Math.min(window.devicePixelRatio || 1, 2);
         const w = window.innerWidth;
         const h = window.innerHeight;
-        canvas.width = Math.round(w * dpr);
+        canvas.width  = Math.round(w * dpr);
         canvas.height = Math.round(h * dpr);
-        canvas.style.width = w + 'px';
+        canvas.style.width  = w + 'px';
         canvas.style.height = h + 'px';
         drawFrame(currentFrame);
     }
@@ -389,107 +665,71 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
     function drawFrame(frameIndex) {
         let img = images[frameIndex];
         if (!img || !loaded[frameIndex]) {
-            // Find closest loaded frame
-            for (let i = frameIndex - 1; i >= 1; i--) {
-                if (images[i] && loaded[i]) {
-                    img = images[i];
-                    break;
-                }
+            for (let i = frameIndex - 1; i >= 0; i--) {
+                if (images[i] && loaded[i]) { img = images[i]; break; }
             }
             if (!img || !img.complete) {
-                for (let i = frameIndex + 1; i <= TOTAL_FRAMES; i++) {
-                    if (images[i] && loaded[i]) {
-                        img = images[i];
-                        break;
-                    }
+                for (let i = frameIndex + 1; i < TOTAL_FRAMES; i++) {
+                    if (images[i] && loaded[i]) { img = images[i]; break; }
                 }
             }
         }
-
         if (!img || !img.complete || img.naturalWidth === 0) return;
 
-        const cw = canvas.width;
-        const ch = canvas.height;
-        const imgRatio = img.naturalWidth / img.naturalHeight;
+        const cw = canvas.width,  ch = canvas.height;
+        const imgRatio    = img.naturalWidth / img.naturalHeight;
         const canvasRatio = cw / ch;
-
         let dw, dh, dx, dy;
         if (canvasRatio > imgRatio) {
-            dw = cw;
-            dh = cw / imgRatio;
-            dx = 0;
-            dy = (ch - dh) / 2;
+            dw = cw; dh = cw / imgRatio; dx = 0; dy = (ch - dh) / 2;
         } else {
-            dw = ch * imgRatio;
-            dh = ch;
-            dx = (cw - dw) / 2;
-            dy = 0;
+            dw = ch * imgRatio; dh = ch; dx = (cw - dw) / 2; dy = 0;
         }
-
         ctx.drawImage(img, dx, dy, dw, dh);
     }
 
-    function preloadFrame(index, onComplete) {
-        if (images[index]) {
-            if (onComplete && loaded[index]) onComplete();
-            return;
-        }
+    // ── Preload all frames silently ──────────────────────────────────────
+    function preloadFrame(index) {
+        if (images[index]) return;
         const img = new Image();
-        img.src = getFrameUrl(index);
         img.onload = function() {
             loaded[index] = true;
-            if (onComplete) onComplete();
+            loadedCount++;
+            if (loadedCount >= TOTAL_FRAMES) revealSequence();
         };
         img.onerror = function() {
-            loaded[index] = false;
+            loadedCount++;
+            if (loadedCount >= TOTAL_FRAMES) revealSequence();
         };
+        img.src = getFrameUrl(index);
         images[index] = img;
     }
 
-    // Step 1: Preload frame 1 immediately and display
-    preloadFrame(1, function() {
-        resizeCanvas();
-        drawFrame(1);
-        if (loader) {
-            loader.classList.add('is-hidden');
+    // Kick off all 239 frames in staggered batches to avoid network storm
+    (function kickoffPreload() {
+        const BATCH = 20;  // concurrent requests per tick
+        let start = 0;
+        function loadBatch() {
+            const end = Math.min(start + BATCH, TOTAL_FRAMES);
+            for (let i = start; i < end; i++) preloadFrame(i);
+            start = end;
+            if (start < TOTAL_FRAMES) setTimeout(loadBatch, 60);
         }
-    });
+        loadBatch();
+    })();
 
-    // Step 2: Preload initial batch (frames 2-25)
-    for (let i = 2; i <= Math.min(25, TOTAL_FRAMES); i++) {
-        preloadFrame(i);
-    }
-
-    // Step 3: Progressively preload remaining frames in background
-    let nextBatchStart = 26;
-    function preloadNextBatch() {
-        if (nextBatchStart > TOTAL_FRAMES) return;
-        const batchEnd = Math.min(nextBatchStart + 15, TOTAL_FRAMES);
-        for (let i = nextBatchStart; i <= batchEnd; i++) {
-            preloadFrame(i);
-        }
-        nextBatchStart = batchEnd + 1;
-        if (nextBatchStart <= TOTAL_FRAMES) {
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(preloadNextBatch, { timeout: 100 });
-            } else {
-                setTimeout(preloadNextBatch, 40);
-            }
-        }
-    }
-    setTimeout(preloadNextBatch, 250);
-
-    // Scroll scrubbing logic
+    // ── Scroll scrubbing (active only after reveal) ────────────────────
     function onScroll() {
+        if (!sequenceReady) return;
+
         const rect = container.getBoundingClientRect();
         const maxScroll = rect.height - window.innerHeight;
-        
         let progress = 0;
         if (maxScroll > 0) {
             progress = Math.min(Math.max(-rect.top / maxScroll, 0), 1);
         }
 
-        targetFrame = Math.min(Math.max(Math.floor(progress * (TOTAL_FRAMES - 1)) + 1, 1), TOTAL_FRAMES);
+        targetFrame = Math.min(Math.max(Math.floor(progress * (TOTAL_FRAMES - 1)), 0), TOTAL_FRAMES - 1);
 
         if (!isTicking) {
             isTicking = true;
@@ -498,38 +738,15 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
                     currentFrame = targetFrame;
                     drawFrame(currentFrame);
                 }
+                if (progressBar) progressBar.style.width = (progress * 100).toFixed(1) + '%';
+                if (frameNum)    frameNum.textContent = String(currentFrame + 1).padStart(3, '0');
 
-                if (progressBar) {
-                    progressBar.style.width = (progress * 100).toFixed(1) + '%';
-                }
-                if (frameNum) {
-                    frameNum.textContent = String(currentFrame).padStart(3, '0');
-                }
-
-                // Captions based on progress
-                if (cap1) {
-                    if (progress >= 0.02 && progress <= 0.28) {
-                        cap1.classList.add('is-active');
-                    } else {
-                        cap1.classList.remove('is-active');
-                    }
-                }
-
-                if (cap2) {
-                    if (progress >= 0.35 && progress <= 0.64) {
-                        cap2.classList.add('is-active');
-                    } else {
-                        cap2.classList.remove('is-active');
-                    }
-                }
-
-                if (cap3) {
-                    if (progress >= 0.70 && progress <= 0.94) {
-                        cap3.classList.add('is-active');
-                    } else {
-                        cap3.classList.remove('is-active');
-                    }
-                }
+                const setCaption = function(el, on) {
+                    el && (on ? el.classList.add('is-active') : el.classList.remove('is-active'));
+                };
+                setCaption(cap1, progress >= 0.02 && progress <= 0.28);
+                setCaption(cap2, progress >= 0.35 && progress <= 0.64);
+                setCaption(cap3, progress >= 0.70 && progress <= 0.94);
 
                 isTicking = false;
             });
@@ -538,14 +755,11 @@ $seqBaseUrl = Yii::getAlias('@web') . '/images/pre-hero-sequence';
 
     window.addEventListener('scroll', onScroll, { passive: true });
     resizeCanvas();
-    onScroll();
 
     if (scrollBtn) {
         scrollBtn.addEventListener('click', function() {
             const nextSec = container.nextElementSibling;
-            if (nextSec) {
-                nextSec.scrollIntoView({ behavior: 'smooth' });
-            }
+            if (nextSec) nextSec.scrollIntoView({ behavior: 'smooth' });
         });
     }
 })();
