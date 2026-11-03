@@ -10,14 +10,26 @@ if ($environment === false) {
     throw new \RuntimeException('Unable to parse database configuration file .env.');
 }
 
-if (!isset($environment['DB_NAME']) || $environment['DB_NAME'] === '' || !array_key_exists('DB_PASSWORD', $environment)) {
-    throw new \RuntimeException('DB_NAME and DB_PASSWORD must be defined in .env.');
+if (empty($environment['DB_NAME'])) {
+    throw new \RuntimeException('DB_NAME must be defined in .env.');
+}
+if (!array_key_exists('DB_PASSWORD', $environment)) {
+    throw new \RuntimeException('DB_PASSWORD key must exist in .env (it may be empty for local XAMPP).');
+}
+
+$host = $environment['HOST'] ?? 'localhost';
+$port = $environment['DB_PORT'] ?? '3306';
+$user = $environment['DB_USER'] ?? 'root';
+
+// Refuse an empty password outside local development
+if ($environment['DB_PASSWORD'] === '' && !YII_DEBUG) {
+    throw new \RuntimeException('An empty DB_PASSWORD is only allowed when YII_DEBUG is on.');
 }
 
 return [
     'class' => \yii\db\Connection::class,
-    'dsn' => 'mysql:host=localhost;dbname=' . $environment['DB_NAME'],
-    'username' => 'root',
+    'dsn' => "mysql:host={$host};port={$port};dbname={$environment['DB_NAME']}",
+    'username' => $user,
     'password' => $environment['DB_PASSWORD'],
     'charset' => 'utf8mb4',
 
